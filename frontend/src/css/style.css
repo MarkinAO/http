@@ -1,0 +1,196 @@
+#root {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box {
+    width: 80%;
+    min-height: 600px;
+    padding-bottom: 50px;
+    border-radius: 10px 10px 0 0;    
+    background-image: url(../images/notepad.png);
+    background-repeat: repeat;
+    filter: grayscale(1);
+    font-size: 22px;
+    opacity: 0.7;
+}
+
+.decorPanel {
+    padding: 10px 20px;
+    background-color: lightgrey;
+    border-radius: 10px 10px 0 0;
+}
+
+.cercle {
+    display: inline-block;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.header {
+    display: flex;
+    justify-content: end;    
+    padding: 20px 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 16px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0 3px black;
+}
+
+.contentBox {
+    margin: 0 20px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.7);    
+}
+
+.ticketWrap {      
+    padding: 10px 20px;
+    border: 1px solid black;
+    &:not(:last-child) {
+        margin-bottom:-1px; 
+       }
+}
+
+.preview {
+    display: grid;
+    grid-template-columns: 0.7fr 6fr 2.5fr 1.5fr;    
+}
+
+.description {
+    margin-top: 20px;
+    padding: 20px 50px 10px;
+    border-top: 1px dashed black;
+}
+
+.shortDescription,
+.date {
+    padding-top: 10px;
+}
+
+.popupWrap {
+    display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: auto;
+    padding: 15px 30px;
+    width: 400px;
+    font-size: 22px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 16px;
+}
+
+.popup-title {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.popupInput {
+    padding: 0 20px;
+    height: 80px;
+    font-size: 18px;
+    border: 1px solid black;
+}
+
+.btn-box {
+    margin-top: 15px;
+}
+
+.actionBox {
+    display: flex;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.errore {
+    color: red;
+    font-size: 16px;
+}
+
+.mini-btn {
+    display: inline-block;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: center;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.edit:hover,
+.delete:hover {
+    cursor: pointer;
+}
+
+.edit {
+    background-image: url('../images/edit-icon.svg');
+}
+
+.delete {
+    background-image: url('../images/delete-icon.svg');
+}
+
+.custom-checkbox {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.custom-checkbox+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+}
+
+.custom-checkbox+label:hover {
+    cursor: pointer;
+}
+
+.custom-checkbox+label::before {
+    content: '';
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: center;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.custom-checkbox:checked+label::before {
+    border-color: gray;
+    background-color: gray;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+}
