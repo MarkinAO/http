@@ -11,27 +11,27 @@ export default class TicketView {
 
   init() {
     this.clearContent();
-    let box = document.querySelector('.box');    
-    
-    if(!box) {
+    let box = document.querySelector('.box');
+
+    if (!box) {
       box = document.createElement('div');
       box.classList.add('box');
       this.container.appendChild(box);
-    }    
+    }
 
     const decorPanel = document.createElement('div');
     decorPanel.classList.add('decorPanel');
     box.appendChild(decorPanel);
     for (let i = 0; i < 3; i++) {
-        const cercle = document.createElement('span');
-        cercle.classList.add('cercle');
-        decorPanel.appendChild(cercle);
-    }        
+      const cercle = document.createElement('span');
+      cercle.classList.add('cercle');
+      decorPanel.appendChild(cercle);
+    }
 
     const header = document.createElement('div');
     header.classList.add('header');
     box.appendChild(header);
-    
+
     const addTicketBtn = document.createElement('div');
     addTicketBtn.classList.add('btn');
     addTicketBtn.textContent = 'Добавить тикет';
@@ -40,16 +40,16 @@ export default class TicketView {
 
     this.contentBox = document.createElement('div');
     this.contentBox.classList.add('contentBox');
-    box.appendChild(this.contentBox);    
+    box.appendChild(this.contentBox);
   }
 
   renderTickets(tickets) {
-    tickets.forEach(ticket => {
+    tickets.forEach((ticket) => {
       this.createTicket(ticket);
-    })
+    });
   }
 
-  createTicket(ticketData) {    
+  createTicket(ticketData) {
     const ticketWrap = document.createElement('div');
     ticketWrap.classList.add('ticketWrap');
     ticketWrap.setAttribute('data-id', ticketData.id);
@@ -60,12 +60,12 @@ export default class TicketView {
     const description = document.createElement('div');
     description.classList.add('description');
     description.classList.add('hidden');
-    description.textContent = 'Без описания';
 
     const checkBox = document.createElement('input');
-    checkBox.setAttribute('type', 'checkbox');    
+    checkBox.setAttribute('type', 'checkbox');
     checkBox.setAttribute('id', ticketData.id);
     checkBox.classList.add('custom-checkbox');
+    checkBox.checked = ticketData.status;
     const label = document.createElement('label');
     label.classList.add('label');
     label.setAttribute('for', ticketData.id);
@@ -75,26 +75,26 @@ export default class TicketView {
 
     const shortDescription = ticketData.name;
 
-    if(shortDescription.length > 0) {            
-        ticket.textContent = shortDescription;
+    if (shortDescription.length > 0) {
+      ticket.textContent = shortDescription;
     } else {
-        const errore = {
-            message: 'Заполните описание задачи!',
-            type: 'shortDescription'
-        };
-        this.renderErrore(errore);
-        return
+      const errore = {
+        message: 'Заполните описание задачи!',
+        type: 'shortDescription',
+      };
+      this.renderErrore(errore);
+      return;
     }
 
     this.contentBox.appendChild(ticketWrap);
     ticketWrap.appendChild(preview);
-    ticketWrap.appendChild(description);      
+    ticketWrap.appendChild(description);
     preview.appendChild(checkBox);
     preview.appendChild(label);
     preview.appendChild(ticket);
 
     const date = document.createElement('div');
-    date.textContent = new Date (ticketData.created).toLocaleString().slice(0,-3);
+    date.textContent = new Date(ticketData.created).toLocaleString().slice(0, -3);
     date.classList.add('date');
     preview.appendChild(date);
 
@@ -117,6 +117,6 @@ export default class TicketView {
 
   clearContent() {
     const contentBox = document.querySelector('.box');
-    if(contentBox) contentBox.innerHTML = '';
+    if (contentBox) contentBox.innerHTML = '';
   }
 }

@@ -7,56 +7,72 @@ export default class TicketService {
     this.url = 'http://localhost:3000';
   }
 
-  list(callback) {}
+  async list(callback) {
+    const url = `${this.url}?method=allTickets`;
+    const response = await fetch(url);
+    if (response.ok) {
+      let json = await response.json();
+      json = json.filter((el) => el.name);
+      return json;
+    }
+    console.error(`Ошибка HTTP: ${response.status}`);
+  }
 
   async get(id, callback) {
-    if(id) {
-      const url = this.url + `?method=ticketById&id=${id}`;
-      const response = await fetch(url);
-      if (response.ok) {
-        let json = await response.json();
-        return json.description;
-      } else {
-        console.error('Описание не найдено');
-      }
-    } else {
-      const url = this.url + '?method=allTickets';
-      const response = await fetch(url);
-      if (response.ok) {
-        let json = await response.json();
-        json = json.filter(el => el.name);
-        return json;
-      } else {
-        console.error('Ошибка HTTP: ' + response.status);
-      }
+    const url = `${this.url}?method=ticketById&id=${id}`;
+    const response = await fetch(url);
+    if (response.ok) {
+      const json = await response.json();
+      return json;
     }
+    console.error('Тикет не найден');
   }
 
   async create(data, callback) {
-    const url = this.url + '?method=createTicket';
+    const url = `${this.url}?method=createTicket`;
     const options = {
       method: 'POST',
-      body: JSON.stringify(data)
-    }
+      body: JSON.stringify(data),
+    };
     const response = await fetch(url, options);
     if (response.ok) {
       const result = 'Запись добавлена';
       return result;
+    }
+    console.error(`Ошибка HTTP: ${response.status}`);
+  }
+
+  async update(id, data, callback) {
+    const ticket = await this.get(id);
+
+    for (const key in ticket) {
+      if (data.hasOwnProperty(key)
+      && ticket[key] !== data[key]) {
+        ticket[key] = data[key];
+      }
+    }
+
+    const url = `${this.url}?method=updateById&id=${id}`;
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(ticket),
+    };
+    const response = await fetch(url, options);
+
+    if (response.ok) {
+      console.log('Тикет успешно обновлён');
     } else {
-      console.error('Ошибка HTTP: ' + response.status);
+      console.error('Ошибка обновления тикета');
     }
   }
 
-  update(id, data, callback) {}
-
   async delete(id, callback) {
-    const url = this.url + `?method=deleteById&id=${id}`;
+    const url = `${this.url}?method=deleteById&id=${id}`;
     const response = await fetch(url);
     if (response.ok) {
-      console.log('Запись успешно удалена')
-      return true
-    } else {
-      console.error('Запись не найдена');
+      console.log('Запись успешно удалена');
+      return true;
     }
+    console.error('Запись не найдена');
   }
 }
